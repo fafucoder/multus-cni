@@ -31,6 +31,7 @@ import (
 	"github.com/containernetworking/cni/libcni"
 	"github.com/containernetworking/cni/pkg/skel"
 	cnitypes "github.com/containernetworking/cni/pkg/types"
+	sriovclient "github.com/fafucoder/sriov-crd/pkg/client/clientset/versioned/typed/sriov/v1"
 	"github.com/intel/multus-cni/kubeletclient"
 	"github.com/intel/multus-cni/logging"
 	"github.com/intel/multus-cni/types"
@@ -52,23 +53,24 @@ type NoK8sNetworkError struct {
 
 // ClientInfo contains information given from k8s client
 type ClientInfo struct {
-	Client    kubernetes.Interface
-	NetClient netclient.K8sCniCncfIoV1Interface
+	Client      kubernetes.Interface
+	NetClient   netclient.K8sCniCncfIoV1Interface
+	SriovClient sriovclient.SriovV1Interface
 }
 
 // AddPod adds pod into kubernetes
 func (c *ClientInfo) AddPod(pod *v1.Pod) (*v1.Pod, error) {
-	return c.Client.Core().Pods(pod.ObjectMeta.Namespace).Create(pod)
+	return c.Client.CoreV1().Pods(pod.ObjectMeta.Namespace).Create(pod)
 }
 
 // GetPod gets pod from kubernetes
 func (c *ClientInfo) GetPod(namespace, name string) (*v1.Pod, error) {
-	return c.Client.Core().Pods(namespace).Get(name, metav1.GetOptions{})
+	return c.Client.CoreV1().Pods(namespace).Get(name, metav1.GetOptions{})
 }
 
 // DeletePod deletes a pod from kubernetes
 func (c *ClientInfo) DeletePod(namespace, name string) error {
-	return c.Client.Core().Pods(namespace).Delete(name, &metav1.DeleteOptions{})
+	return c.Client.CoreV1().Pods(namespace).Delete(name, &metav1.DeleteOptions{})
 }
 
 // AddNetAttachDef adds net-attach-def into kubernetes
@@ -111,6 +113,10 @@ func SetNetworkStatus(client *ClientInfo, k8sArgs *types.K8sArgs, netStatus []ne
 	}
 
 	return nil
+}
+
+func CreateSriovVFCrd(client *ClientInfo, k8sArgs *types.K8sArgs) {
+
 }
 
 func parsePodNetworkObjectName(podnetwork string) (string, string, string, error) {
@@ -396,9 +402,15 @@ func GetK8sClient(kubeconfig string, kubeClient *ClientInfo) (*ClientInfo, error
 		return nil, err
 	}
 
+	sriovclient, err := sriovclient.NewForConfig(config)
+	if err != nil {
+		return nil, err
+	}
+
 	return &ClientInfo{
-		Client:    client,
-		NetClient: netclient,
+		Client:      client,
+		NetClient:   netclient,
+		SriovClient: sriovclient,
 	}, nil
 }
 

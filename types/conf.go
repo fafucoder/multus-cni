@@ -319,6 +319,26 @@ func delegateAddDeviceID(inBytes []byte, deviceID string) ([]byte, error) {
 	return configBytes, nil
 }
 
+func DelegateGetDeviceID(inBytes []byte) (string, error) {
+	var rawConf map[string]interface{}
+	var err error
+
+	err = json.Unmarshal(inBytes, &rawConf)
+	if err != nil {
+		return "", logging.Errorf("delegateGetDeviceID: failed to re-marshal Spec.Config: %v", err)
+	}
+
+	if deviceID, ok := rawConf["deviceID"]; ok {
+		return deviceID.(string), err
+	}
+
+	if pciBusID, ok := rawConf["pciBusID"]; ok {
+		return pciBusID.(string), err
+	}
+
+	return "", err
+}
+
 // addDeviceIDInConfList injects deviceID information in delegate bytes
 func addDeviceIDInConfList(inBytes []byte, deviceID string) ([]byte, error) {
 	var rawConfig map[string]interface{}

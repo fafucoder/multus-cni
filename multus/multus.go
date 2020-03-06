@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/fafucoder/sriov-crd/pkg/controller"
 	"io/ioutil"
 	"net"
 	"os"
@@ -542,6 +543,24 @@ func cmdAdd(args *skel.CmdArgs, exec invoke.Exec, kubeClient *k8s.ClientInfo) (c
 				}
 
 				netStatus = append(netStatus, *delegateNetStatus)
+			}
+		}
+
+		deviceID, err := types.DelegateGetDeviceID(delegate.Bytes)
+		if err == nil && deviceID != "" {
+			pod, err := kubeClient.GetPod(string(k8sArgs.K8S_POD_NAMESPACE), string(k8sArgs.K8S_POD_NAME))
+			if err != nil {
+				return nil, cmdErr(k8sArgs, "error get k8s pod")
+			}
+
+			sriovSpec, err := controller.CreateSriovVfSpec(pod, tmpResult, deviceID)
+			if err != nil {
+				return nil, cmdErr(k8sArgs, "failed create sriov vf spec: %v", err)
+			}
+
+			err = controller.CreateSriovVfCrd(kubeClient.SriovClient, pod, sriovSpec)
+			if err != nil {
+				return nil, cmdErr(k8sArgs, "failed create sriov vf crd: %v", err)
 			}
 		}
 	}
