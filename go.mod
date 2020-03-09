@@ -6,7 +6,7 @@ require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/containernetworking/cni v0.7.1
 	github.com/containernetworking/plugins v0.8.2
-	github.com/fafucoder/sriov-crd v0.0.0-20200306091330-aa97bf5fc566
+	github.com/fafucoder/sriov-crd v0.0.0-20200309031551-cf56d7bb57a0
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/k8snetworkplumbingwg/network-attachment-definition-client v0.0.0-20191119172530-79f836b90111
 	github.com/onsi/ginkgo v1.10.1

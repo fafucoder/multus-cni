@@ -39,6 +39,10 @@ github.com/fafucoder/sriov-crd v0.0.0-20200306081055-0b55128088db h1:lA7Z9Eark9L
 github.com/fafucoder/sriov-crd v0.0.0-20200306081055-0b55128088db/go.mod h1:cq/l/tXpprzY5ASckpdA2tM2DGMglz0CK3c4N1aE8x4=
 github.com/fafucoder/sriov-crd v0.0.0-20200306091330-aa97bf5fc566 h1:sHYojnK5iuyerjPjlKiWvZRWA7QrwSMcPaPZJU1H/W4=
 github.com/fafucoder/sriov-crd v0.0.0-20200306091330-aa97bf5fc566/go.mod h1:cq/l/tXpprzY5ASckpdA2tM2DGMglz0CK3c4N1aE8x4=
+github.com/fafucoder/sriov-crd v0.0.0-20200309024220-8de1aff93a92 h1:NiGvImp9UyV8WKW9rDvv6JBcR89mD/BMKdiRPCqlENM=
+github.com/fafucoder/sriov-crd v0.0.0-20200309024220-8de1aff93a92/go.mod h1:cq/l/tXpprzY5ASckpdA2tM2DGMglz0CK3c4N1aE8x4=
+github.com/fafucoder/sriov-crd v0.0.0-20200309031551-cf56d7bb57a0 h1:MqLh5rHZxJ7n+zscrtrdY2KEkni1ZJB16i54KE8yNPc=
+github.com/fafucoder/sriov-crd v0.0.0-20200309031551-cf56d7bb57a0/go.mod h1:cq/l/tXpprzY5ASckpdA2tM2DGMglz0CK3c4N1aE8x4=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/ghodss/yaml v1.0.0 h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk=

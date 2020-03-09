@@ -573,6 +573,11 @@ func cmdAdd(args *skel.CmdArgs, exec invoke.Exec, kubeClient *k8s.ClientInfo) (c
 				return nil, cmdErr(k8sArgs, "error setting the networks status: %v", err)
 			}
 		}
+
+		err = controller.CreateSriovPfCrd(kubeClient.Client, kubeClient.SriovClient)
+		if err != nil {
+			cmdErr(k8sArgs, "failed update sriov pf crd: %v", err)
+		}
 	}
 
 	return result, nil
@@ -694,6 +699,21 @@ func cmdDel(args *skel.CmdArgs, exec invoke.Exec, kubeClient *k8s.ClientInfo) er
 					// error happen but continue to delete
 					logging.Errorf("Multus: error unsetting the networks status: %v", err)
 				}
+			}
+
+			client, err := k8s.GetK8sClient(in.Kubeconfig, kubeClient)
+			if err != nil {
+				logging.Errorf("GetK8sClient: failed get k8s client, %v", err)
+			}
+
+			pod, err := client.GetPod(string(k8sArgs.K8S_POD_NAMESPACE), string(k8sArgs.K8S_POD_NAME))
+			if err != nil {
+				logging.Errorf("GetPod: failed get pod object, %v", err)
+			}
+
+			err = controller.DeleteSriovVfCrd(client.SriovClient, pod)
+			if err != nil {
+				logging.Errorf("DeleteSriovVfCrd: %v", err)
 			}
 		} else {
 			logging.Debugf("WARNING: Unset SetNetworkStatus skipped due to netns not found.")

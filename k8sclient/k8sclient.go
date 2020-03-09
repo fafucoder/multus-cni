@@ -115,10 +115,6 @@ func SetNetworkStatus(client *ClientInfo, k8sArgs *types.K8sArgs, netStatus []ne
 	return nil
 }
 
-func CreateSriovVFCrd(client *ClientInfo, k8sArgs *types.K8sArgs) {
-
-}
-
 func parsePodNetworkObjectName(podnetwork string) (string, string, string, error) {
 	var netNsName string
 	var netIfName string

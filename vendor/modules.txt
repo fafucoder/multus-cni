@@ -16,10 +16,9 @@ github.com/containernetworking/plugins/pkg/testutils
 github.com/davecgh/go-spew/spew
 # github.com/evanphx/json-patch v4.5.0+incompatible
 github.com/evanphx/json-patch
-# github.com/fafucoder/sriov-crd v0.0.0-20200306091330-aa97bf5fc566
+# github.com/fafucoder/sriov-crd v0.0.0-20200309031551-cf56d7bb57a0
 github.com/fafucoder/sriov-crd/pkg/apis/sriov
 github.com/fafucoder/sriov-crd/pkg/apis/sriov/v1
-github.com/fafucoder/sriov-crd/pkg/client/clientset/versioned
 github.com/fafucoder/sriov-crd/pkg/client/clientset/versioned/scheme
 github.com/fafucoder/sriov-crd/pkg/client/clientset/versioned/typed/sriov/v1
 github.com/fafucoder/sriov-crd/pkg/controller
